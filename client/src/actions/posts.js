@@ -4,7 +4,10 @@ import * as api from "../api";
 
 export const getPosts = () => async dispatch => {
 	try {
-		//Immediately fetching data
+		/* 1-destructuring the coming data 
+      2- payload was originalyly equal to [] 
+      now its assigned to coming data
+    */
 		const { data } = await api.fetchPosts();
 		dispatch({ type: "FETCH_ALL", payload: data });
 	} catch (error) {
