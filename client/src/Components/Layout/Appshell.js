@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import Cards from "../Cards";
 import LightAndDark from "../LightAndDark";
+import Form from "../Form/Form";
 
 const Appshell = () => {
 	const theme = useMantineTheme();
@@ -41,9 +42,7 @@ const Appshell = () => {
 					hidden={!opened}
 					width={{ sm: 200, lg: 300 }}
 				>
-					<Text style={{ color: secondaryColor }}>Application navbar</Text>
-					<Text style={{ color: secondaryColor }}>Application navbar</Text>
-					<Text style={{ color: secondaryColor }}>Application navbar</Text>
+					<Form />
 				</Navbar>
 			}
 			/*========== Footer========= */
