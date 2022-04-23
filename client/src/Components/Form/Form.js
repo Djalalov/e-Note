@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
-import { At } from "tabler-icons-react";
-import { TextInput, Button, Text, Group, Box } from "@mantine/core";
+import ImageDragzone from "./ImageDragzone";
+
+import {
+	TextInput,
+	Button,
+	Group,
+	Box,
+	Text,
+	useMantineTheme,
+	MantineTheme,
+} from "@mantine/core";
 
 const Form = () => {
-	const [value, setValue] = useState("");
+	//const [value, setValue] = useState("");
 	const [postData, setPostData] = useState({});
 
 	const form = useForm({
@@ -14,36 +23,71 @@ const Form = () => {
 			description: "",
 			tag: "",
 			selectedFile: "",
+			email: "",
 		},
 
 		validate: {
+			author: value => (value.length < 2 ? "Too short name" : null),
+			title: value => (value.length < 2 ? "Too short title" : null),
+			description: value => (value.length < 20 ? "Too short title" : null),
+			tag: value => (value.length < 2 ? "Too short title" : null),
 			email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
 		},
 	});
 
 	return (
-		<Box sx={{ maxWidth: 500 }} mx="auto" shadow="xs" p="md" radius="md">
+		<Box sx={{ minWidth: 260 }} shadow="xs" p="5" radius="md">
 			<form onSubmit={form.onSubmit(values => console.log(values))}>
-				<Text size="large">Create Notes</Text>
-
+				{/* 				<Text size="large">Create Notes</Text>
+				 */}
 				<TextInput
-					//value={postData.author}
-					onChange={e => setValue(e.currentTarget.value)}
+					value={postData.author}
+					//onChange={e => setValue(e.currentTarget.value)}
 					required
-					lebel="Name"
+					label="Name"
 					placeholder="Your name ..."
 					{...form.getInputProps("author")}
 				/>
+				<TextInput
+					value={postData.title}
+					style={{ marginTop: 15 }}
+					//onChange={e => setValue(e.currentTarget.value)}
+					required
+					label="Title"
+					placeholder="Title of your note..."
+					{...form.getInputProps("title")}
+				/>
 
 				<TextInput
-					//value={postData.email}
-					onChange={e => setValue(e.currentTarget.value)}
+					value={postData.description}
+					style={{ marginTop: 15 }}
+					//onChange={e => setValue(e.currentTarget.value)}
+					required
+					label="Description"
+					placeholder="Description ..."
+					{...form.getInputProps("description")}
+				/>
+				<TextInput
+					value={postData.email}
+					//onChange={e => setValue(e.currentTarget.value)}
+					style={{ marginTop: 15 }}
 					required
 					label="Email"
 					placeholder="your@email.com"
-					rightSection={<At size={14} />}
 					{...form.getInputProps("email")}
 				/>
+
+				<TextInput
+					style={{ marginTop: 15 }}
+					value={postData.tag}
+					//onChange={e => setValue(e.currentTarget.value)}
+					required
+					label="Tag"
+					placeholder="Tag"
+					{...form.getInputProps("tag")}
+				/>
+
+				<ImageDragzone />
 
 				<Group mt="md">
 					<Button type="submit">Submit</Button>

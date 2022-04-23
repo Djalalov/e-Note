@@ -10,8 +10,8 @@ import {
 	useMantineTheme,
 } from "@mantine/core";
 
-import Posts from "../Components/Posts/Posts";
-import Form from "../Components/Form/Form";
+import Posts from "./Posts/Posts";
+//import Form from "../Components/Form/Form";
 
 const Cards = () => {
 	const theme = useMantineTheme();
@@ -20,7 +20,7 @@ const Cards = () => {
 		theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
 	return (
 		<Grid>
-			<Grid.Col style={{ maxWidth: 350 }} span={3} sm={4} xs={4}>
+			<Grid.Col style={{ maxWidth: 330 }} span={3} sm={4} xs={4}>
 				<Card shadow="sm" p="lg" radius="lg">
 					<Card.Section>
 						<Image
@@ -42,8 +42,7 @@ const Cards = () => {
 
 					<Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
 						With Fjord Tours you can explore more of the magical fjord
-						landscapes with tours and activities on and around the fjords of
-						Norway
+						landscapes with tours and activities the fjords of Norway
 					</Text>
 
 					<Button
