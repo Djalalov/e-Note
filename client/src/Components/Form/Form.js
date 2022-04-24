@@ -13,7 +13,6 @@ import {
 } from "@mantine/core";
 
 const Form = () => {
-	//const [value, setValue] = useState("");
 	const [postData, setPostData] = useState({});
 
 	const form = useForm({
