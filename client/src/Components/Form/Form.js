@@ -13,6 +13,8 @@ import {
 } from "@mantine/core";
 
 const Form = () => {
+	const theme = useMantineTheme();
+
 	const [postData, setPostData] = useState({});
 
 	const form = useForm({
@@ -39,18 +41,23 @@ const Form = () => {
 		console.log(postData);
 	};
 
-	//console.log(form.values);
+	const secondaryColor =
+		theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[8];
 
 	return (
 		<Box sx={{ minWidth: 260 }} shadow="xs" p="5" radius="md">
 			<form onSubmit={form.onSubmit(handleSubmit)}>
-				<Text align="center" size="lg" weight={600} style={{ marginTop: 10 }}>
+				<Text
+					style={{ color: secondaryColor, marginTop: 10 }}
+					align="center"
+					size="lg"
+					weight={600}
+				>
 					Create Notes
 				</Text>
 
 				<TextInput
 					value={postData.author}
-					//onChange={e => setValue(e.currentTarget.value)}
 					required
 					label="Name"
 					placeholder="Your name ..."
@@ -59,7 +66,6 @@ const Form = () => {
 				<TextInput
 					value={postData.title}
 					style={{ marginTop: 15 }}
-					//onChange={e => setValue(e.currentTarget.value)}
 					required
 					label="Title"
 					placeholder="Title of your note..."
@@ -69,7 +75,6 @@ const Form = () => {
 				<TextInput
 					value={postData.description}
 					style={{ marginTop: 15 }}
-					//onChange={e => setValue(e.currentTarget.value)}
 					required
 					label="Description"
 					placeholder="Description ..."
@@ -77,7 +82,6 @@ const Form = () => {
 				/>
 				<TextInput
 					value={postData.email}
-					//onChange={e => setValue(e.currentTarget.value)}
 					style={{ marginTop: 15 }}
 					required
 					label="Email"
@@ -88,7 +92,6 @@ const Form = () => {
 				<TextInput
 					style={{ marginTop: 15 }}
 					value={postData.tag}
-					//onChange={e => setValue(e.currentTarget.value)}
 					required
 					label="Tag"
 					placeholder="Tag"
