@@ -35,11 +35,20 @@ const Form = () => {
 		},
 	});
 
+	const handleSubmit = () => {
+		setPostData(form.values);
+		console.log(postData);
+	};
+
+	//console.log(form.values);
+
 	return (
 		<Box sx={{ minWidth: 260 }} shadow="xs" p="5" radius="md">
-			<form onSubmit={form.onSubmit(values => console.log(values))}>
-				{/* 				<Text size="large">Create Notes</Text>
-				 */}
+			<form onSubmit={form.onSubmit(handleSubmit)}>
+				<Text align="center" size="lg" weight={600} style={{ marginTop: 10 }}>
+					Create Notes
+				</Text>
+
 				<TextInput
 					value={postData.author}
 					//onChange={e => setValue(e.currentTarget.value)}
@@ -87,7 +96,7 @@ const Form = () => {
 					{...form.getInputProps("tag")}
 				/>
 
-				<ImageDragzone />
+				<ImageDragzone {...form.getInputProps("selectedFile")} />
 
 				<Group mt="md">
 					<Button type="submit">Submit</Button>
