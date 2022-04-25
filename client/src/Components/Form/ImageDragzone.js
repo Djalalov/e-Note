@@ -8,29 +8,37 @@ import {
 	Group,
 	Loader,
 } from "@mantine/core";
-import { Upload, Photo, X, Icon as TablerIcon } from "tabler-icons-react";
+import { Upload, Photo } from "tabler-icons-react";
 
-const ImageDragzone = () => {
+const ImageDragzone = ({ image, setImage }) => {
 	const [loading, setLoading] = useState(false);
 
-	const onDrop = useCallback(acceptedFiles => {
-		console.log(acceptedFiles);
+	const onDrop = useCallback(acceptedFile => {
 		setLoading(true);
+		setTimeout(() => {
+			//changing the png/jpeg to base64 string
+			acceptedFile.forEach(file => {
+				const reader = new FileReader();
 
-		//changing the png/jpeg to base64 string
-		acceptedFiles.forEach(file => {
-			const reader = new FileReader();
+				reader.onload = () => {
+					const image = reader.result;
+					setImage(prevImage => [...prevImage, image]);
+					console.log(image);
+				};
 
-			reader.onload = () => {
-				const binaryStr = reader.result;
-				console.log(binaryStr);
-			};
-			reader.readAsDataURL(file);
-		});
-		setLoading(false);
+				reader.readAsDataURL(file);
+				//image = file;
+			});
+
+			setLoading(false);
+		}, 2000);
 	}, []);
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+		multiple: false,
+		accept: "image/*",
+	});
 
 	let theme = useMantineTheme();
 
@@ -66,16 +74,18 @@ const ImageDragzone = () => {
 					<Upload size="50" style={{ color: secondaryColor }} />
 
 					<Text style={{ color: secondaryColor, marginTop: 30 }}>
-						Drag 'n' drop your file here, or click to select a file
+						Drag 'n' drop your photo here, or click to select.
 					</Text>
 				</Group>
+			) : image ? (
+				<img src={image} height={120} width={250} />
 			) : loading ? (
 				<Loader style={{ marginTop: 35 }} variant="bars" />
 			) : (
 				<Group position="center" direction="row" noWrap={true}>
 					<Photo size="50" style={{ color: secondaryColor }} />
 					<Text style={{ color: secondaryColor, marginTop: 30 }}>
-						Drag 'n' drop your file here, or click to select a file
+						Drag 'n' drop your photo here, or click to select.
 					</Text>
 				</Group>
 			)}

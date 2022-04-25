@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import ImageDragzone from "./ImageDragzone";
-
+import { useDispatch } from "react-redux";
+import { createPost } from "../../actions/posts";
 import {
 	TextInput,
 	Button,
@@ -9,12 +10,12 @@ import {
 	Box,
 	Text,
 	useMantineTheme,
-	MantineTheme,
 } from "@mantine/core";
 
 const Form = () => {
 	const theme = useMantineTheme();
 
+	const [image, setImage] = useState("");
 	const [postData, setPostData] = useState({});
 
 	const form = useForm({
@@ -23,7 +24,7 @@ const Form = () => {
 			title: "",
 			description: "",
 			tag: "",
-			selectedFile: "",
+			image: "",
 			email: "",
 		},
 
@@ -36,9 +37,13 @@ const Form = () => {
 		},
 	});
 
+	const dispatch = useDispatch();
+
 	const handleSubmit = () => {
 		setPostData(form.values);
+		dispatch(createPost(postData));
 		console.log(postData);
+		form.reset();
 	};
 
 	const secondaryColor =
@@ -46,7 +51,7 @@ const Form = () => {
 
 	return (
 		<Box sx={{ minWidth: 260 }} shadow="xs" p="5" radius="md">
-			<form onSubmit={form.onSubmit(handleSubmit)}>
+			<form onSubmit={handleSubmit}>
 				<Text
 					style={{ color: secondaryColor, marginTop: 10 }}
 					align="center"
@@ -57,14 +62,12 @@ const Form = () => {
 				</Text>
 
 				<TextInput
-					value={postData.author}
 					required
 					label="Name"
 					placeholder="Your name ..."
 					{...form.getInputProps("author")}
 				/>
 				<TextInput
-					value={postData.title}
 					style={{ marginTop: 15 }}
 					required
 					label="Title"
@@ -73,7 +76,6 @@ const Form = () => {
 				/>
 
 				<TextInput
-					value={postData.description}
 					style={{ marginTop: 15 }}
 					required
 					label="Description"
@@ -81,7 +83,6 @@ const Form = () => {
 					{...form.getInputProps("description")}
 				/>
 				<TextInput
-					value={postData.email}
 					style={{ marginTop: 15 }}
 					required
 					label="Email"
@@ -91,15 +92,13 @@ const Form = () => {
 
 				<TextInput
 					style={{ marginTop: 15 }}
-					value={postData.tag}
 					required
 					label="Tag"
 					placeholder="Tag"
 					{...form.getInputProps("tag")}
 				/>
 
-				<ImageDragzone {...form.getInputProps("selectedFile")} />
-
+				<ImageDragzone image={image} setImage={setImage} />
 				<Group mt="md">
 					<Button type="submit">Submit</Button>
 				</Group>
