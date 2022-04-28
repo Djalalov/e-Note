@@ -38,12 +38,18 @@ const Form = () => {
 	});
 
 	const dispatch = useDispatch();
+	//form.setFieldValue("image", image);
+	console.log(form.values);
+
+	//console.log(image);
 
 	const handleSubmit = () => {
+		/* 		form.setFieldValue("image", image);
+		console.log(form.values);
 		setPostData(form.values);
 		dispatch(createPost(postData));
 		console.log(postData);
-		form.reset();
+		form.reset(); */
 	};
 
 	const secondaryColor =
@@ -51,7 +57,7 @@ const Form = () => {
 
 	return (
 		<Box sx={{ minWidth: 260 }} shadow="xs" p="5" radius="md">
-			<form onSubmit={handleSubmit}>
+			<form>
 				<Text
 					style={{ color: secondaryColor, marginTop: 10 }}
 					align="center"
@@ -100,7 +106,7 @@ const Form = () => {
 
 				<ImageDragzone image={image} setImage={setImage} />
 				<Group mt="md">
-					<Button type="submit">Submit</Button>
+					<Button onClick={handleSubmit}>Submit</Button>
 				</Group>
 			</form>
 		</Box>

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { useDropzone } from "react-dropzone";
 import {
 	Box,
@@ -7,6 +8,7 @@ import {
 	Text,
 	Group,
 	Loader,
+	Image,
 } from "@mantine/core";
 import { Upload, Photo } from "tabler-icons-react";
 
@@ -45,9 +47,11 @@ const ImageDragzone = ({ image, setImage }) => {
 	const secondaryColor =
 		theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[8];
 
+	const largeScreen = useMediaQuery("(min-width: 1200px)");
+
 	return (
 		<Box
-			style={{ marginTop: 20, height: 100, border: "2px dotted gray" }}
+			style={{ marginTop: 20, height: 125, border: "2px dotted gray" }}
 			sx={theme => ({
 				backgroundColor:
 					theme.colorScheme === "dark"
@@ -55,7 +59,7 @@ const ImageDragzone = ({ image, setImage }) => {
 						: theme.colors.gray[0],
 				textAlign: "center",
 				padding: theme.spacing.xl,
-				borderRadius: theme.radius.md,
+				borderRadius: theme.radius.lg,
 				cursor: "pointer",
 				marginTop: theme.spacing.xl,
 
@@ -78,7 +82,19 @@ const ImageDragzone = ({ image, setImage }) => {
 					</Text>
 				</Group>
 			) : image ? (
-				<img src={image} height={120} width={250} />
+				<Image
+					styles={{
+						image: {
+							transform: "translateX(-22px) translateY(-22px)",
+						},
+					}}
+					src={image}
+					alt=""
+					radius="lg"
+					//fit="contain"
+					width={largeScreen ? 360 : 260}
+					height={170}
+				/>
 			) : loading ? (
 				<Loader style={{ marginTop: 35 }} variant="bars" />
 			) : (
