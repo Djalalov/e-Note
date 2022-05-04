@@ -25,11 +25,9 @@ const ImageDragzone = ({ image, setImage }) => {
 				reader.onload = () => {
 					const image = reader.result;
 					setImage(prevImage => [...prevImage, image]);
-					console.log(image);
 				};
 
 				reader.readAsDataURL(file);
-				//image = file;
 			});
 
 			setLoading(false);
@@ -91,7 +89,6 @@ const ImageDragzone = ({ image, setImage }) => {
 					src={image}
 					alt=""
 					radius="lg"
-					//fit="contain"
 					width={largeScreen ? 360 : 260}
 					height={170}
 				/>

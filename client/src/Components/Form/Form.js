@@ -18,13 +18,15 @@ const Form = () => {
 	const [image, setImage] = useState("");
 	const [postData, setPostData] = useState({});
 
+	const dispatch = useDispatch();
+
 	const form = useForm({
 		initialValues: {
 			author: "",
 			title: "",
 			description: "",
 			tag: "",
-			image: "",
+			img: "",
 			email: "",
 		},
 
@@ -37,19 +39,20 @@ const Form = () => {
 		},
 	});
 
-	const dispatch = useDispatch();
-	//form.setFieldValue("image", image);
-	console.log(form.values);
-
-	//console.log(image);
-
 	const handleSubmit = () => {
-		/* 		form.setFieldValue("image", image);
+		if (image) {
+			form.setFieldValue("img", image);
+		}
 		console.log(form.values);
+
 		setPostData(form.values);
-		dispatch(createPost(postData));
 		console.log(postData);
-		form.reset(); */
+
+		/* if (postData) {
+			dispatch(createPost(postData));
+			form.reset();
+			setImage("");
+		} */
 	};
 
 	const secondaryColor =
@@ -57,7 +60,7 @@ const Form = () => {
 
 	return (
 		<Box sx={{ minWidth: 260 }} shadow="xs" p="5" radius="md">
-			<form>
+			<form onSubmit={form.onSubmit(handleSubmit)}>
 				<Text
 					style={{ color: secondaryColor, marginTop: 10 }}
 					align="center"
@@ -105,8 +108,17 @@ const Form = () => {
 				/>
 
 				<ImageDragzone image={image} setImage={setImage} />
+
 				<Group mt="md">
-					<Button onClick={handleSubmit}>Submit</Button>
+					<Button
+						//	onClick={handleSubmit}
+						radius="lg"
+						fullWidth
+						variant="gradient"
+						type="submit"
+					>
+						Submit
+					</Button>
 				</Group>
 			</form>
 		</Box>
